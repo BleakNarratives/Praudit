@@ -1,3 +1,11 @@
+"""
+[DNA_TAG]
+ORIGIN: Moto4_A9
+PILLAR: valet_concierge
+PATH: integrator.py
+LAST_SYNC: 2026-08-02T01:13:37Z
+[/DNA_TAG]
+"""
 import json
 import logging
 from pathlib import Path
@@ -36,5 +44,5 @@ def broadcast_migration(project_name: str, old_path: Path, new_path: Path):
 if __name__ == "__main__":
     # Test notification
     logging.basicConfig(level=logging.INFO)
-    broadcast_migration("TestProject", Path("/home/user/TestProject"), Path("/storage/emulated/0/RootBase/TestProject"))
+    broadcast_migration("TestProject", Path("/home/user/TestProject"), Path("$HOME/RootBase/TestProject"))
     print("Broadcast test complete.")

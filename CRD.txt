@@ -1,0 +1,13 @@
+# CODE REFACTOR DIRECTIVE (CRD) - CodeMentor-MVP
+
+## Objective
+Refactor `backend/lib/api_server.py` to interface with the new `insight_v2.py` engine instead of the legacy `ai_explain.py` functions.
+
+## Context
+`insight_v2.py` is now the core engine. It introduces a modular `analyze_code` function that returns a dictionary (with `explanation` and `hotspots`) instead of returning raw HTML.
+
+## Required Tasks
+1. **Update Imports:** In `api_server.py`, switch imports to use the new `analyze_code` signature from `insight_v2.py`.
+2. **Refactor Handler:** Update `APIHandler.do_POST` to handle the dictionary output from `insight_v2.py` and convert it to the expected JSON response format for the frontend.
+3. **Environment Setup:** Ensure the environment variables defined in the system are accessible to `api_server.py` to allow `insight_v2.py` to load configuration via `tomllib` correctly.
+4. **Cleanup:** Remove legacy function calls if they are no longer utilized by the new engine.

@@ -1,0 +1,18 @@
+# Refactor Outline: Vibe Integration
+
+## 1. Config Sync (Diff Outline)
+- **Current:** `.vibe/config.toml` contains static, local configuration.
+- **Goal:** Update to load shared environment variables and ecosystem settings.
+- **Diff:** Replace static hardcoded paths in `[paths]` with `ENV` variable references pointing to `RootBase/config/`.
+
+## 2. Event Bridge (Diff Outline)
+- **Current:** `agents/` operate in isolation.
+- **Goal:** Integrate with `Praudit` / `integrator.py` event bus.
+- **Diff:** 
+  - Add `from integrator import broadcast_migration` to main agent loops.
+  - Wrap agent action execution in `try...except` with `broadcast_migration` calls on state change.
+
+## 3. Skills Exposure (Diff Outline)
+- **Current:** `skills/` are only accessible via Vibe CLI.
+- **Goal:** Expose as callable tools to `RootBase` automation scripts.
+- **Diff:** Create a thin API shim in `src/vibe_shim.py` that exposes `skills/` via a REST/JSON-RPC endpoint that `RootBase` orchestration tools can call.

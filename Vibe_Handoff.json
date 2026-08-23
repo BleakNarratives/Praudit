@@ -1,0 +1,17 @@
+{
+  "handoff": {
+    "project": "Vibe",
+    "location": "~/.vibe",
+    "status": "Incomplete integration with RootBase ecosystem",
+    "key_gaps": [
+      "No direct telemetry link to RootBase/MoltEngine",
+      "Config is siloed from broader ecosystem environment",
+      "Limited interoperability with Thoth/Fartographer/Bardildo"
+    ],
+    "refactor_targets": [
+      "Sync config.toml with RootBase/config",
+      "Implement event bridge in agents/",
+      "Expose skills/ to RootBase automation"
+    ]
+  }
+}

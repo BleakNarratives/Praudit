@@ -1,3 +1,11 @@
+"""
+[DNA_TAG]
+ORIGIN: Moto4_A9
+PILLAR: valet_concierge
+PATH: praudit.py
+LAST_SYNC: 2026-08-02T01:12:58Z
+[/DNA_TAG]
+"""
 import sys
 import logging
 from pathlib import Path
@@ -8,7 +16,7 @@ from integrator import broadcast_migration
 from enforcer import enforce_lockdown
 
 # Config
-DESTINATION_ROOT = Path("/storage/emulated/0/RootBase")
+DESTINATION_ROOT = Path("$HOME/RootBase")
 HOME_DIR = Path.home()
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")

@@ -1,36 +1,26 @@
+"""
+[DNA_TAG]
+ORIGIN: Moto4_A9
+PILLAR: valet_concierge
+PATH: migrator.py
+LAST_SYNC: 2026-08-02T01:13:37Z
+[/DNA_TAG]
+"""
 import shutil
+import os
 import logging
 from pathlib import Path
 
-def get_versioned_path(destination_dir: Path, folder_name: str) -> Path:
-    """Generates a versioned path to prevent overwriting."""
-    base_dest = destination_dir / folder_name
-    if not base_dest.exists():
-        return base_dest
-    
-    version = 1
-    while True:
-        versioned_dest = destination_dir / f"{folder_name}_v{version}"
-        if not versioned_dest.exists():
-            return versioned_dest
-        version += 1
-
-def migrate_project(source_path: Path, destination_dir: Path) -> Path:
-    """Migrates a project to the destination, creating a versioned copy if needed."""
-    destination = get_versioned_path(destination_dir, source_path.name)
-    
+def migrate_project(source_path, destination_root):
+    destination = destination_root / source_path.name
+    if destination.exists():
+        logging.info(f"Already exists: {destination}")
+        return destination
+    # Skip symlinks
+    if source_path.is_symlink():
+        logging.info(f"Skipping symlink: {source_path}")
+        return source_path
     logging.info(f"Migrating {source_path} to {destination}")
-    shutil.move(str(source_path), str(destination))
+    shutil.copytree(str(source_path), str(destination))
+    shutil.rmtree(str(source_path))
     return destination
-
-if __name__ == "__main__":
-    # Test migration logic
-    dest = Path.home() / "test_dest"
-    dest.mkdir(exist_ok=True)
-    
-    test_proj = Path.home() / "test_proj"
-    test_proj.mkdir(exist_ok=True)
-    (test_proj / "README.md").touch()
-    
-    migrated = migrate_project(test_proj, dest)
-    print(f"Migrated to: {migrated}")
